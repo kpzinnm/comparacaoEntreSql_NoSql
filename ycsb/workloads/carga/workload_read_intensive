@@ -1,0 +1,18 @@
+# ./ycsb/workloads/workload_read_intensive
+workload=site.ycsb.workloads.CoreWorkload
+
+recordcount=1000000
+operationcount=2000000
+
+readproportion=0.9
+updateproportion=0.1
+insertproportion=0.0
+scanproportion=0.0
+
+requestdistribution=zipfian
+
+fieldcount=10
+fieldlength=100
+
+threadcount=16
+maxexecutiontime=300
