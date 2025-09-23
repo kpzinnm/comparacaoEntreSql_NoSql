@@ -1,0 +1,193 @@
+[WARN]  Running against a source checkout. In order to get our runtime dependencies we'll have to invoke Maven. Depending on the state of your system, this may take ~30-45 seconds
+[DEBUG]  Running 'mvn -B -pl site.ycsb:mongodb-binding -am package -DskipTests dependency:list -DoutputAbsoluteArtifactFilename -DappendOutput=false -DoutputFile=/tmp/tmpr3lukyki'
+[INFO] Scanning for projects...
+[INFO] ------------------------------------------------------------------------
+[INFO] Reactor Build Order:
+[INFO] 
+[INFO] YCSB Root                                                          [pom]
+[INFO] Core YCSB                                                          [jar]
+[INFO] Per Datastore Binding descriptor                                   [jar]
+[INFO] YCSB Datastore Binding Parent                                      [pom]
+[INFO] MongoDB Binding                                                    [jar]
+[INFO] 
+[INFO] ---------------------------< site.ycsb:root >---------------------------
+[INFO] Building YCSB Root 0.18.0-SNAPSHOT                                 [1/5]
+[INFO] --------------------------------[ pom ]---------------------------------
+[INFO] 
+[INFO] --- maven-enforcer-plugin:3.0.0-M1:enforce (enforce-maven) @ root ---
+[INFO] 
+[INFO] --- maven-checkstyle-plugin:2.16:check (validate) @ root ---
+[INFO] 
+[INFO] --- maven-dependency-plugin:2.8:list (default-cli) @ root ---
+[INFO] 
+[INFO] ---------------------------< site.ycsb:core >---------------------------
+[INFO] Building Core YCSB 0.18.0-SNAPSHOT                                 [2/5]
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] --- maven-enforcer-plugin:3.0.0-M1:enforce (enforce-maven) @ core ---
+[INFO] 
+[INFO] --- maven-checkstyle-plugin:2.16:check (validate) @ core ---
+[INFO] 
+[INFO] --- maven-resources-plugin:2.6:resources (default-resources) @ core ---
+[INFO] Using 'UTF-8' encoding to copy filtered resources.
+[INFO] Copying 1 resource
+[INFO] 
+[INFO] --- maven-compiler-plugin:3.7.0:compile (default-compile) @ core ---
+[INFO] Changes detected - recompiling the module!
+[INFO] Compiling 63 source files to /opt/YCSB/core/target/classes
+[INFO] /opt/YCSB/core/src/main/java/site/ycsb/CommandLine.java: Some input files use or override a deprecated API.
+[INFO] /opt/YCSB/core/src/main/java/site/ycsb/CommandLine.java: Recompile with -Xlint:deprecation for details.
+[INFO] 
+[INFO] --- maven-resources-plugin:2.6:testResources (default-testResources) @ core ---
+[INFO] Using 'UTF-8' encoding to copy filtered resources.
+[INFO] skip non existing resourceDirectory /opt/YCSB/core/src/test/resources
+[INFO] 
+[INFO] --- maven-compiler-plugin:3.7.0:testCompile (default-testCompile) @ core ---
+[INFO] Nothing to compile - all classes are up to date
+[INFO] 
+[INFO] --- maven-surefire-plugin:2.12.4:test (default-test) @ core ---
+[INFO] Tests are skipped.
+[INFO] 
+[INFO] --- maven-jar-plugin:2.4:jar (default-jar) @ core ---
+[INFO] Building jar: /opt/YCSB/core/target/core-0.18.0-SNAPSHOT.jar
+[INFO] 
+[INFO] --- maven-dependency-plugin:2.8:list (default-cli) @ core ---
+[INFO] 
+[INFO] --------------< site.ycsb:datastore-specific-descriptor >---------------
+[INFO] Building Per Datastore Binding descriptor 0.18.0-SNAPSHOT          [3/5]
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] --- maven-enforcer-plugin:3.0.0-M1:enforce (enforce-maven) @ datastore-specific-descriptor ---
+[INFO] 
+[INFO] --- maven-checkstyle-plugin:2.16:check (validate) @ datastore-specific-descriptor ---
+[INFO] 
+[INFO] --- maven-resources-plugin:2.6:resources (default-resources) @ datastore-specific-descriptor ---
+[INFO] Using 'UTF-8' encoding to copy filtered resources.
+[INFO] Copying 1 resource
+[INFO] 
+[INFO] --- maven-compiler-plugin:3.7.0:compile (default-compile) @ datastore-specific-descriptor ---
+[INFO] No sources to compile
+[INFO] 
+[INFO] --- maven-resources-plugin:2.6:testResources (default-testResources) @ datastore-specific-descriptor ---
+[INFO] Using 'UTF-8' encoding to copy filtered resources.
+[INFO] skip non existing resourceDirectory /opt/YCSB/binding-parent/datastore-specific-descriptor/src/test/resources
+[INFO] 
+[INFO] --- maven-compiler-plugin:3.7.0:testCompile (default-testCompile) @ datastore-specific-descriptor ---
+[INFO] No sources to compile
+[INFO] 
+[INFO] --- maven-surefire-plugin:2.12.4:test (default-test) @ datastore-specific-descriptor ---
+[INFO] Tests are skipped.
+[INFO] 
+[INFO] --- maven-jar-plugin:2.4:jar (default-jar) @ datastore-specific-descriptor ---
+[INFO] 
+[INFO] --- maven-dependency-plugin:2.8:list (default-cli) @ datastore-specific-descriptor ---
+[INFO] 
+[INFO] ----------------------< site.ycsb:binding-parent >----------------------
+[INFO] Building YCSB Datastore Binding Parent 0.18.0-SNAPSHOT             [4/5]
+[INFO] --------------------------------[ pom ]---------------------------------
+[INFO] 
+[INFO] --- maven-enforcer-plugin:3.0.0-M1:enforce (enforce-maven) @ binding-parent ---
+[INFO] 
+[INFO] --- maven-checkstyle-plugin:2.16:check (validate) @ binding-parent ---
+[INFO] 
+[INFO] --- maven-dependency-plugin:2.10:copy-dependencies (stage-dependencies) @ binding-parent ---
+[INFO] 
+[INFO] --- maven-dependency-plugin:2.10:list (default-cli) @ binding-parent ---
+[INFO] 
+[INFO] ---------------------< site.ycsb:mongodb-binding >----------------------
+[INFO] Building MongoDB Binding 0.18.0-SNAPSHOT                           [5/5]
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] --- maven-enforcer-plugin:3.0.0-M1:enforce (enforce-maven) @ mongodb-binding ---
+[INFO] 
+[INFO] --- maven-checkstyle-plugin:2.16:check (validate) @ mongodb-binding ---
+[INFO] 
+[INFO] --- maven-resources-plugin:2.6:resources (default-resources) @ mongodb-binding ---
+[INFO] Using 'UTF-8' encoding to copy filtered resources.
+[INFO] Copying 2 resources
+[INFO] 
+[INFO] --- maven-compiler-plugin:3.7.0:compile (default-compile) @ mongodb-binding ---
+[INFO] Changes detected - recompiling the module!
+[INFO] Compiling 4 source files to /opt/YCSB/mongodb/target/classes
+[INFO] 
+[INFO] --- maven-resources-plugin:2.6:testResources (default-testResources) @ mongodb-binding ---
+[INFO] Using 'UTF-8' encoding to copy filtered resources.
+[INFO] skip non existing resourceDirectory /opt/YCSB/mongodb/src/test/resources
+[INFO] 
+[INFO] --- maven-compiler-plugin:3.7.0:testCompile (default-testCompile) @ mongodb-binding ---
+[INFO] Nothing to compile - all classes are up to date
+[INFO] 
+[INFO] --- maven-surefire-plugin:2.12.4:test (default-test) @ mongodb-binding ---
+[INFO] Tests are skipped.
+[INFO] 
+[INFO] --- maven-jar-plugin:2.4:jar (default-jar) @ mongodb-binding ---
+[INFO] Building jar: /opt/YCSB/mongodb/target/mongodb-binding-0.18.0-SNAPSHOT.jar
+[INFO] 
+[INFO] --- maven-dependency-plugin:2.10:copy-dependencies (stage-dependencies) @ mongodb-binding ---
+[INFO] org.slf4j:slf4j-api:jar:1.7.25 already exists in destination.
+[INFO] ch.qos.logback:logback-core:jar:1.1.2 already exists in destination.
+[INFO] org.mongodb:mongodb-driver-sync:jar:5.1.0 already exists in destination.
+[INFO] org.mongodb:mongodb-driver-core:jar:5.1.0 already exists in destination.
+[INFO] org.xerial.snappy:snappy-java:jar:1.1.7.1 already exists in destination.
+[INFO] org.mongodb:bson-record-codec:jar:5.1.0 already exists in destination.
+[INFO] ch.qos.logback:logback-classic:jar:1.1.2 already exists in destination.
+[INFO] org.mongodb:bson:jar:5.1.0 already exists in destination.
+[INFO] com.allanbank:mongodb-async-driver:jar:2.0.1 already exists in destination.
+[INFO] 
+[INFO] --- maven-assembly-plugin:2.5.5:single (default) @ mongodb-binding ---
+[WARNING] The following patterns were never triggered in this artifact exclusion filter:
+o  '*:sources'
+
+[INFO] Building tar: /opt/YCSB/mongodb/target/ycsb-mongodb-binding-0.18.0-SNAPSHOT.tar.gz
+[INFO] 
+[INFO] --- maven-dependency-plugin:2.10:list (default-cli) @ mongodb-binding ---
+[INFO] ------------------------------------------------------------------------
+[INFO] Reactor Summary for YCSB Root 0.18.0-SNAPSHOT:
+[INFO] 
+[INFO] YCSB Root .......................................... SUCCESS [  3.254 s]
+[INFO] Core YCSB .......................................... SUCCESS [  4.512 s]
+[INFO] Per Datastore Binding descriptor ................... SUCCESS [  0.314 s]
+[INFO] YCSB Datastore Binding Parent ...................... SUCCESS [  0.849 s]
+[INFO] MongoDB Binding .................................... SUCCESS [  2.077 s]
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD SUCCESS
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  11.895 s
+[INFO] Finished at: 2025-09-23T15:03:54Z
+[INFO] ------------------------------------------------------------------------
+/usr/local/openjdk-11/bin/java -cp /opt/YCSB/mongodb/conf:/opt/YCSB/mongodb/target/mongodb-binding-0.18.0-SNAPSHOT.jar:/root/.m2/repository/org/apache/htrace/htrace-core4/4.1.0-incubating/htrace-core4-4.1.0-incubating.jar:/root/.m2/repository/ch/qos/logback/logback-core/1.1.2/logback-core-1.1.2.jar:/root/.m2/repository/org/mongodb/mongodb-driver-core/5.1.0/mongodb-driver-core-5.1.0.jar:/root/.m2/repository/org/xerial/snappy/snappy-java/1.1.7.1/snappy-java-1.1.7.1.jar:/root/.m2/repository/org/mongodb/bson/5.1.0/bson-5.1.0.jar:/root/.m2/repository/org/codehaus/jackson/jackson-core-asl/1.9.4/jackson-core-asl-1.9.4.jar:/opt/YCSB/core/target/core-0.18.0-SNAPSHOT.jar:/root/.m2/repository/org/slf4j/slf4j-api/1.7.25/slf4j-api-1.7.25.jar:/root/.m2/repository/org/mongodb/mongodb-driver-sync/5.1.0/mongodb-driver-sync-5.1.0.jar:/root/.m2/repository/org/hdrhistogram/HdrHistogram/2.1.12/HdrHistogram-2.1.12.jar:/root/.m2/repository/org/mongodb/bson-record-codec/5.1.0/bson-record-codec-5.1.0.jar:/root/.m2/repository/org/codehaus/jackson/jackson-mapper-asl/1.9.4/jackson-mapper-asl-1.9.4.jar:/root/.m2/repository/ch/qos/logback/logback-classic/1.1.2/logback-classic-1.1.2.jar:/root/.m2/repository/com/allanbank/mongodb-async-driver/2.0.1/mongodb-async-driver-2.0.1.jar site.ycsb.Client -db site.ycsb.db.MongoDbClient -s -P workloads/workloadc -p mongodb.url=mongodb://teste:teste@mongo-db:27017/ycsb?authSource=admin -t
+Command line: -db site.ycsb.db.MongoDbClient -s -P workloads/workloadc -p mongodb.url=mongodb://teste:teste@mongo-db:27017/ycsb?authSource=admin -t
+YCSB Client 0.18.0-SNAPSHOT
+
+Loading workload...
+Starting test.
+2025-09-23 15:03:55:151 0 sec: 0 operations; est completion in 0 second 
+mongo client connection created with mongodb://teste:teste@mongo-db:27017/ycsb?authSource=admin
+DBWrapper: report latency for each error is false and specific error codes to track for latency are: []
+2025-09-23 15:03:57:250 2 sec: 1000 operations; 462.53 current ops/sec; [READ: Count=1000, Max=316159, Min=650, Avg=1481.4, 50=1012, 90=1787, 99=2839, 99.9=3297, 99.99=316159] [CLEANUP: Count=1, Max=7695, Min=7692, Avg=7694, 50=7695, 90=7695, 99=7695, 99.9=7695, 99.99=7695] 
+[OVERALL], RunTime(ms), 2162
+[OVERALL], Throughput(ops/sec), 462.53469010175763
+[TOTAL_GCS_G1_Young_Generation], Count, 1
+[TOTAL_GC_TIME_G1_Young_Generation], Time(ms), 15
+[TOTAL_GC_TIME_%_G1_Young_Generation], Time(%), 0.6938020351526364
+[TOTAL_GCS_G1_Old_Generation], Count, 0
+[TOTAL_GC_TIME_G1_Old_Generation], Time(ms), 0
+[TOTAL_GC_TIME_%_G1_Old_Generation], Time(%), 0.0
+[TOTAL_GCs], Count, 1
+[TOTAL_GC_TIME], Time(ms), 15
+[TOTAL_GC_TIME_%], Time(%), 0.6938020351526364
+[READ], Operations, 1000
+[READ], AverageLatency(us), 1481.404
+[READ], MinLatency(us), 650
+[READ], MaxLatency(us), 316159
+[READ], 50thPercentileLatency(us), 1012
+[READ], 95thPercentileLatency(us), 2123
+[READ], 99thPercentileLatency(us), 2839
+[READ], Return=OK, 1000
+[CLEANUP], Operations, 1
+[CLEANUP], AverageLatency(us), 7694.0
+[CLEANUP], MinLatency(us), 7692
+[CLEANUP], MaxLatency(us), 7695
+[CLEANUP], 50thPercentileLatency(us), 7695
+[CLEANUP], 95thPercentileLatency(us), 7695
+[CLEANUP], 99thPercentileLatency(us), 7695

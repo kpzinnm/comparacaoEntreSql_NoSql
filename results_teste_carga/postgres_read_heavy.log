@@ -1,0 +1,53 @@
+2025-09-23 14:48:13 - === CENÁRIO READ-HEAVY ===
+2025-09-23 14:48:13 - Executando cenário: read_heavy
+2025-09-23 14:48:13 - Threads: 20, Duração: 300s, Leitura: 90%, Escrita: 10%
+sysbench 1.1.0-3ceba0b (using bundled LuaJIT 2.1.0-beta3)
+
+Running the test with following options:
+Number of threads: 20
+Report intermediate results every 30 second(s)
+Initializing random number generator from current time
+
+
+Initializing worker threads...
+
+Threads started!
+
+[ 30s ] thds: 20 tps: 130.61 qps: 12573.01 (r/w/o: 11788.69/407.69/376.63) lat (ms,95%): 277.21 err/s: 0.00 reconn/s: 0.00
+[ 60s ] thds: 20 tps: 147.91 qps: 14208.01 (r/w/o: 13320.43/467.56/420.02) lat (ms,95%): 227.40 err/s: 0.00 reconn/s: 0.00
+[ 90s ] thds: 20 tps: 140.90 qps: 13516.04 (r/w/o: 12670.76/447.97/397.31) lat (ms,95%): 244.38 err/s: 0.00 reconn/s: 0.00
+[ 120s ] thds: 20 tps: 137.87 qps: 13235.18 (r/w/o: 12407.98/436.67/390.53) lat (ms,95%): 240.02 err/s: 0.00 reconn/s: 0.00
+[ 150s ] thds: 20 tps: 138.40 qps: 13289.71 (r/w/o: 12459.18/442.16/388.36) lat (ms,95%): 248.83 err/s: 0.00 reconn/s: 0.00
+[ 180s ] thds: 20 tps: 136.45 qps: 13097.76 (r/w/o: 12279.04/437.89/380.84) lat (ms,95%): 244.38 err/s: 0.00 reconn/s: 0.00
+[ 210s ] thds: 20 tps: 139.44 qps: 13391.07 (r/w/o: 12554.55/450.17/386.35) lat (ms,95%): 240.02 err/s: 0.00 reconn/s: 0.00
+[ 240s ] thds: 20 tps: 137.03 qps: 13154.04 (r/w/o: 12331.83/441.14/381.07) lat (ms,95%): 253.35 err/s: 0.00 reconn/s: 0.00
+[ 270s ] thds: 20 tps: 136.84 qps: 13134.28 (r/w/o: 12313.25/443.55/377.48) lat (ms,95%): 248.83 err/s: 0.00 reconn/s: 0.00
+[ 300s ] thds: 20 tps: 134.93 qps: 12955.82 (r/w/o: 12146.25/437.72/371.85) lat (ms,95%): 253.35 err/s: 0.00 reconn/s: 0.00
+SQL statistics:
+    queries performed:
+        read:                            3728880
+        write:                           132446
+        other:                           116146
+        total:                           3977472
+    transactions:                        41432  (138.05 per sec.)
+    queries:                             3977472 (13253.27 per sec.)
+    ignored errors:                      0      (0.00 per sec.)
+    reconnects:                          0      (0.00 per sec.)
+
+Throughput:
+    events/s (eps):                      138.0549
+    time elapsed:                        300.1125s
+    total number of events:              41432
+
+Latency (ms):
+         min:                                   44.80
+         avg:                                  144.84
+         max:                                  538.64
+         95th percentile:                      248.83
+         sum:                              6001051.70
+
+Threads fairness:
+    events (avg/stddev):           2071.6000/27.38
+    execution time (avg/stddev):   300.0526/0.03
+
+2025-09-23 14:53:14 - === CENÁRIO WRITE-HEAVY ===

@@ -1,4 +1,3 @@
-# ./sysbench/Dockerfile
 FROM ubuntu:22.04
 
 # Variáveis de ambiente
@@ -28,8 +27,10 @@ RUN ./autogen.sh \
     && make -j$(nproc) \
     && make install
 
+# Criar diretório para scripts
+WORKDIR /app
 
-# Copia scripts de teste
+# Copiar scripts de teste
 COPY scripts/carga/ ./scripts/carga/
 RUN chmod +x ./scripts/carga/*.sh
 
@@ -40,7 +41,5 @@ ENV DB_HOST=postgres-db \
     DB_PASSWORD=teste \
     DB_NAME=testedb
 
-
 # Entrar no container para rodar sysbench manualmente
 CMD ["tail", "-f", "/dev/null"]
-
