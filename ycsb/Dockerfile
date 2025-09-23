@@ -16,23 +16,22 @@ RUN mvn -pl site.ycsb:mongodb-binding -am clean package -DskipTests
 
 RUN /opt/ycsb/bin/ycsb load mongodb -h >/dev/null 2>&1 || true
 
-
 WORKDIR /app
 
-# OBS: Vocês devem colocar seus workloads e scripts em seus respectivos diretorios de testes
-# Teste de carga
-COPY workloads/carga/ ./workloads/carga/
-COPY scripts/carga/ ./scripts/carga/
-RUN chmod +x ./scripts/carga/*.sh
+# Copiar workloads customizados
+COPY workloads/carga/ /opt/YCSB/workloads/carga/
 
-ENV PATH="/opt/YCSB/bin:${PATH}"
+# Criar link simbólico para facilitar acesso
+RUN ln -s /opt/YCSB/bin/ycsb /usr/local/bin/ycsb
 
 # Configura variáveis de ambiente padrão
 ENV MONGO_HOST=mongo-db \
     MONGO_PORT=27017 \
     MONGO_USER=teste \
     MONGO_PASSWORD=teste \
-    MONGO_AUTH_DB=admin
+    MONGO_AUTH_DB=admin \
+    YCSB_HOME=/opt/YCSB
+
+ENV PATH="/opt/YCSB/bin:${PATH}"
 
 CMD ["tail", "-f", "/dev/null"]
-

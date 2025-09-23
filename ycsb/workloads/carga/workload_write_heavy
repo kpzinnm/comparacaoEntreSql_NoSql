@@ -1,0 +1,21 @@
+# Workload Write-Heavy: 10% leitura, 90% escrita
+recordcount=1000000
+operationcount=5000000
+workload=site.ycsb.workloads.CoreWorkload
+
+readallfields=true
+readproportion=0.1
+updateproportion=0.5
+insertproportion=0.4
+scanproportion=0
+
+requestdistribution=zipfian
+
+# Configurações MongoDB
+mongodb.url=mongodb://teste:teste@mongo-db:27017/admin
+mongodb.database=olist
+mongodb.writeConcern=acknowledged
+
+# Performance
+threadcount=20
+target=1000

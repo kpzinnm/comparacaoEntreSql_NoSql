@@ -1,0 +1,36 @@
+2025-09-23 09:59:08 - Iniciando benchmark comparativo PostgreSQL vs MongoDB
+2025-09-23 09:59:08 - Aguardando containers ficarem prontos...
+2025-09-23 09:59:10 - Containers prontos!
+2025-09-23 09:59:10 - === PREPARAÇÃO DOS BANCOS DE DADOS ===
+2025-09-23 09:59:10 - Executando script de schema do PostgreSQL...
+2025-09-23 09:59:10 - Verificando e criando tabelas faltantes...
+2025-09-23 09:59:10 - Tabela olist_customers_dataset já existe.
+2025-09-23 09:59:10 - Tabela olist_geolocation_dataset já existe.
+2025-09-23 09:59:10 - Tabela olist_order_items_dataset já existe.
+2025-09-23 09:59:11 - Tabela olist_order_payments_dataset já existe.
+2025-09-23 09:59:11 - Tabela olist_order_reviews_dataset já existe.
+2025-09-23 09:59:11 - Tabela olist_orders_dataset já existe.
+2025-09-23 09:59:11 - Tabela olist_products_dataset já existe.
+2025-09-23 09:59:11 - Tabela olist_sellers_dataset já existe.
+2025-09-23 09:59:11 - Tabela product_category_name_translation já existe.
+2025-09-23 09:59:11 - Carregando dados no PostgreSQL...
+2025-09-23 09:59:12 - Carregando tabela: olist_customers_dataset
+2025-09-23 09:59:14 - Tabela olist_customers_dataset carregada com -------99441 registros
+2025-09-23 09:59:14 - Carregando tabela: olist_geolocation_dataset
+2025-09-23 09:59:18 - Tabela olist_geolocation_dataset carregada com ---------1000163 registros
+2025-09-23 09:59:18 - Carregando tabela: olist_order_items_dataset
+2025-09-23 09:59:21 - Tabela olist_order_items_dataset carregada com --------112650 registros
+2025-09-23 09:59:22 - Carregando tabela: olist_order_payments_dataset
+2025-09-23 09:59:24 - Tabela olist_order_payments_dataset carregada com --------103886 registros
+2025-09-23 09:59:24 - Carregando tabela: olist_order_reviews_dataset
+2025-09-23 09:59:26 - Tabela olist_order_reviews_dataset carregada com -------99224 registros
+2025-09-23 09:59:27 - Carregando tabela: olist_orders_dataset
+2025-09-23 09:59:31 - Tabela olist_orders_dataset carregada com -------99441 registros
+2025-09-23 09:59:31 - Carregando tabela: olist_products_dataset
+2025-09-23 09:59:33 - Tabela olist_products_dataset carregada com -------32951 registros
+2025-09-23 09:59:33 - Carregando tabela: olist_sellers_dataset
+2025-09-23 09:59:33 - Tabela olist_sellers_dataset carregada com -------3095 registros
+2025-09-23 09:59:34 - Carregando tabela: product_category_name_translation
+2025-09-23 09:59:34 - Tabela product_category_name_translation carregada com -------71 registros
+2025-09-23 09:59:34 - Carregando dados no MongoDB...
+2025-09-23 09:59:34 - Carregando coleção: olist_customers_dataset
