@@ -265,7 +265,7 @@ main() {
     
     # Executar sequência de benchmarks
     #prepare_databases
-    # run_postgres_benchmarks
+    run_postgres_benchmarks
     run_mongo_benchmarks
     
     log "=== BENCHMARK CONCLUÍDO ==="
