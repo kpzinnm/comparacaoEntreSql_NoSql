@@ -1,3 +1,7 @@
+OBS: e necessario baixar o csv que se encontra nesse link: e colocar o .csv na pasta /postgres e /mongo
+https://www.kaggle.com/datasets/willianoliveiragibin/uk-property-price-data-1995-2023-04
+
+
 # comparacaoEntreSql_NoSql
 Experimento prático e conceitual comparando bancos de dados do tipo SQL e NoSQL
 
