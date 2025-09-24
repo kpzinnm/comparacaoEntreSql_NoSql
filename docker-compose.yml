@@ -5,11 +5,12 @@ services:
     image: postgres:17
     container_name: postgres-db
     restart: unless-stopped
+    command: postgres -c max_connections=300
     environment:
       - POSTGRES_PASSWORD=teste
       - POSTGRES_USER=teste
       - POSTGRES_DB=testedb
-      - POSTGRES_MAX_CONNECTIONS=300
+      # - POSTGRES_MAX_CONNECTIONS=300
       - POSTGRES_SHARED_BUFFERS=256MB
       - POSTGRES_EFFECTIVE_CACHE_SIZE=1GB
       - POSTGRES_WORK_MEM=4MB

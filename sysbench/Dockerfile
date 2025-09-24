@@ -33,7 +33,7 @@ WORKDIR /app
 # Copiar scripts de teste
 COPY scripts/estresse/ ./scripts/estresse/
 COPY scripts/prepare_sysbench.sh ./scripts/
-RUN chmod +x ./scripts/carga/*.sh ./scripts/estresse/*.sh ./scripts/prepare_sysbench.sh && \
+RUN chmod +x ./scripts/estresse/*.sh ./scripts/prepare_sysbench.sh && \
     find ./scripts -name "*.sh" -exec sed -i 's/\r$//' {} \;
 
 # Configura variáveis de ambiente padrão

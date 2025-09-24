@@ -1,8 +1,7 @@
-FROM openjdk:11-slim
+FROM maven:3.8-openjdk-11
 
 RUN apt-get update && apt-get install -y \
     git \
-    maven \
     python3 \
     python3-pip \
     && ln -s /usr/bin/python3 /usr/bin/python \
@@ -12,7 +11,7 @@ WORKDIR /opt
 RUN git clone https://github.com/brianfrankcooper/YCSB.git
 
 WORKDIR /opt/YCSB
-RUN mvn -pl site.ycsb:mongodb-binding -am clean package -DskipTests
+RUN mvn clean package
 
 RUN /opt/ycsb/bin/ycsb load mongodb -h >/dev/null 2>&1 || true
 
