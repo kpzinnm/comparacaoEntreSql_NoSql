@@ -90,38 +90,31 @@ comparacaoEntreSql_NoSql/
 └── results/                         # Cada cenário de teste tem um diretório 
 ```
 ## Configuração do Ambiente
-1. Preparação dos Datasets
-O dataset está em um zip do repositório de projeto
+### 1. Preparação dos Datasets
+O dataset está em um arquivo .zip na raiz do projeto. Extraia-o na própria raiz.
+
+Certifique-se que os arquivos estão no diretório correto
 ```
-# Certifique-se que os arquivos estão no diretório correto
 ls datasets/
-# Deve mostrar: vários arquivos .csv e o diretorio mongo
-
-ls datasets/mongo/
-# Deve mostrar: vários arquivos .json
 ```
-2. Construção dos Containers
+### 2. Construção dos Containers
+Para construir e iniciar os containers, use:
 ```
-# Construir e iniciar os containers
-docker-compose build   # Construir imagens customizadas
-docker-compose up -d   # Iniciar containers em background
-
-# Verificar status
+docker-compose build     # Construir imagens customizadas
+docker-compose up -d     # Iniciar containers em background
+```
+Para verificar status:
+```
 docker-compose ps
 ```
-## Execução Completa 
+## 3. Execução
+Cada cenário de teste está em uma branch, todas elas seguem uma estrutura semelhante.
 
-Cada cenário de teste está em uma branch, todas elas seguem uma estrutura semelhante. Então, a configuração do docker, basta apenas rodar o script run_benchmark_…sh que está na raiz do projeto
-
+Para realizar o benchmarking, mude para a branch de teste desejada e execute o ```script run_benchmark.sh``` na raiz do projeto:
 ```
-# Executar o run_benchmark na raiz do projeto
-bash run_benchmark.sh
+./bash run_benchmark.sh
 ```
 
-
-
-Exemplo: vários usuários tentando atualizar o mesmo estoque.
-Objetivo: validar propriedades ACID no SQL e consistência eventual em NoSQL.
 
 
 
