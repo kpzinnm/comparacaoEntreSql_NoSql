@@ -54,6 +54,72 @@ Objetivo: identificar gargalos e comparar modelos de dados.
 
 ### 3.5. Teste de Concorrência 
 Simular múltiplas transações simultâneas para avaliar bloqueios, deadlocks e isolamento.
+
+
+---
+
+# Requisitos de Sistema
+- Sistema Operacional: Linux, macOS ou Windows com WSL2
+- Docker: Versão 20.10 ou superior
+- Docker Compose: Versão 2.0 ou superior
+- Memória RAM: Mínimo 8 GB (recomendado 16 GB)
+- Armazenamento: 20 GB de espaço livre
+- Processador: Multicore (4 cores ou mais recomendado)
+
+Estrutura do Projeto
+```
+comparacaoEntreSql_NoSql/
+├── datasets/                          # Diretório de datasets
+│   ├── mongo/                        # Arquivos JSON para MongoDB
+│   │   ├── …
+│   │   └── ...
+│   └── *.csv                         # Arquivos CSV para PostgreSQL
+├── postgres/
+│   └── init/
+│       └── 01-init.sql              # Schema do PostgreSQL
+├── sysbench/
+│   ├── Dockerfile
+│   └── scripts/
+│       └── …
+├── ycsb/
+│   ├── Dockerfile
+│   └── workloads/
+│       └── …
+├── docker-compose.yml
+├── run_benchmark_<teste>.sh                 # Cada cenário de teste tem um script
+└── results/                         # Cada cenário de teste tem um diretório 
+```
+## Configuração do Ambiente
+1. Preparação dos Datasets
+O dataset está em um zip do repositório de projeto
+```
+# Certifique-se que os arquivos estão no diretório correto
+ls datasets/
+# Deve mostrar: vários arquivos .csv e o diretorio mongo
+
+ls datasets/mongo/
+# Deve mostrar: vários arquivos .json
+```
+2. Construção dos Containers
+```
+# Construir e iniciar os containers
+docker-compose build   # Construir imagens customizadas
+docker-compose up -d   # Iniciar containers em background
+
+# Verificar status
+docker-compose ps
+```
+## Execução Completa 
+
+Cada cenário de teste está em uma branch, todas elas seguem uma estrutura semelhante. Então, a configuração do docker, basta apenas rodar o script run_benchmark_…sh que está na raiz do projeto
+
+```
+# Executar o run_benchmark na raiz do projeto
+bash run_benchmark.sh
+```
+
+
+
 Exemplo: vários usuários tentando atualizar o mesmo estoque.
 Objetivo: validar propriedades ACID no SQL e consistência eventual em NoSQL.
 
