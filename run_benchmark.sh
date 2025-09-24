@@ -179,7 +179,7 @@ run_mongo_benchmarks() {
 
     log "Carregando dados com YCSB (workload a)..."
     $YCSB_EXEC load mongodb -s \
-        -P workloads/carga/workload_load \
+        -P workloads/workloadc \
         -p mongodb.url="mongodb://teste:teste@mongo-db:27017/ycsb?authSource=admin" \
         > $RESULTS_DIR/mongo_load.log 2>&1
 
@@ -187,7 +187,7 @@ run_mongo_benchmarks() {
     log "Executando cenário Read-Heavy no MongoDB (workload c)..."
     start_resource_monitoring "mongo" "read_heavy"
     $YCSB_EXEC run mongodb -s \
-        -P workloads/carga/workload_read_heavy \
+        -P workloads/workloadc \
         -p mongodb.url="mongodb://teste:teste@mongo-db:27017/ycsb?authSource=admin" \
         > $RESULTS_DIR/mongo_read_heavy.log 2>&1
     stop_resource_monitoring
@@ -196,7 +196,7 @@ run_mongo_benchmarks() {
     log "Executando cenário Write-Heavy no MongoDB (workload a - 50/50)..."
     start_resource_monitoring "mongo" "write_heavy"
     $YCSB_EXEC run mongodb -s \
-        -P workloads/carga/workload_write_heavy \
+        -P workloads/workloadc \
         -p mongodb.url="mongodb://teste:teste@mongo-db:27017/ycsb?authSource=admin" \
         > $RESULTS_DIR/mongo_write_heavy.log 2>&1
     stop_resource_monitoring
@@ -205,7 +205,7 @@ run_mongo_benchmarks() {
     log "Executando cenário Balanceado no MongoDB (workload a)..."
     start_resource_monitoring "mongo" "balanced"
     $YCSB_EXEC run mongodb -s \
-        -P workloads/carga/workload_balanced \
+        -P workloads/workloadc \
         -p mongodb.url="mongodb://teste:teste@mongo-db:27017/ycsb?authSource=admin" \
         > $RESULTS_DIR/mongo_balanced.log 2>&1
     stop_resource_monitoring
