@@ -7,7 +7,7 @@
 set -e  # Sai imediatamente em caso de erro
 
 # Configurações
-RESULTS_DIR="results_teste_carga"
+RESULTS_DIR="results_teste_consultas"
 DATASETS_DIR="datasets"
 LOG_FILE="benchmark_$(date +%Y%m%d_%H%M%S).log"
 
@@ -187,16 +187,16 @@ run_postgres_benchmarks() {
     
     # Preparar ambiente sysbench
     log "Preparando ambiente Sysbench..."
-    docker exec sysbench-runner /app/scripts/carga/prepare_sysbench.sh
+    docker exec sysbench-runner /app/scripts/desempenho_consultas/prepare_sysbench.sh
     
     # Executar benchmarks usando o script interno
     log "Executando benchmarks Sysbench..."
-    docker exec sysbench-runner /app/scripts/carga/run_benchmarks.sh > $RESULTS_DIR/sysbench_all.log 2>&1
+    docker exec sysbench-runner /app/scripts/desempenho_consultas/run_benchmarks.sh > $RESULTS_DIR/sysbench_all.log 2>&1
     
     # Separar logs por cenário
-    awk '/=== CENÁRIO READ-HEAVY ===/,/=== CENÁRIO WRITE-HEAVY ===/' $RESULTS_DIR/sysbench_all.log > $RESULTS_DIR/postgres_read_heavy.log
-    awk '/=== CENÁRIO WRITE-HEAVY ===/,/=== CENÁRIO BALANCEADO ===/' $RESULTS_DIR/sysbench_all.log > $RESULTS_DIR/postgres_write_heavy.log
-    awk '/=== CENÁRIO BALANCEADO ===/,/Benchmarks Sysbench concluídos!/' $RESULTS_DIR/sysbench_all.log > $RESULTS_DIR/postgres_balanced.log
+    awk '/=== CENÁRIO READ SIMPLE ===/,/=== CENÁRIO READ RANGE ===/' $RESULTS_DIR/sysbench_all.log > $RESULTS_DIR/postgres_read_simple.log
+    awk '/=== CENÁRIO READ RANGE ===/,/=== CENÁRIO READ JOIN + AGG ===/' $RESULTS_DIR/sysbench_all.log > $RESULTS_DIR/postgres_read_range.log
+    awk '/=== CENÁRIO READ JOIN + AGG ===/,/Benchmarks Sysbench concluídos!/' $RESULTS_DIR/sysbench_all.log > $RESULTS_DIR/postgres_read_join_agg.log
     
     log "Benchmarks PostgreSQL concluídos!"
 }
@@ -209,38 +209,37 @@ run_mongo_benchmarks() {
     local YCSB_EXEC="docker exec -w /opt/YCSB ycsb-runner ./bin/ycsb"
 
     # Carregar dados iniciais com YCSB
-    log "Carregando dados com YCSB (workload a)..."
+    log "Carregando dados com YCSB"
     $YCSB_EXEC load mongodb -s \
-        -P workloads/workloada \
+        -P workloads/desempenho_consultas/workload_load \
         -p mongodb.url="mongodb://teste:teste@mongo-db:27017/ycsb?authSource=admin" \
         > $RESULTS_DIR/mongo_load.log 2>&1
 
-    # Cenário 1: Read-Heavy (Workload C: 100% Leitura)
-    log "Executando cenário Read-Heavy no MongoDB (workload c)..."
-    start_resource_monitoring "mongo" "read_heavy"
+    # Cenário 1: Read Simple
+    log "Executando cenário Read Simple no MongoDB..."
+    start_resource_monitoring "mongo" "read_simple"
     $YCSB_EXEC run mongodb -s \
-        -P workloads/workloadc \
+        -P workloads/desempenho_consultas/workload_read_simple \
         -p mongodb.url="mongodb://teste:teste@mongo-db:27017/ycsb?authSource=admin" \
-        > $RESULTS_DIR/mongo_read_heavy.log 2>&1
+        > $RESULTS_DIR/mongo_read_simple.log 2>&1
     stop_resource_monitoring
 
-    # Cenário 2: Write-Heavy (Workload B: 95% Leitura, 5% Atualização) - Ajuste se necessário
-    # Nota: YCSB não tem um workload "90% escrita" por padrão. Workload A (50/50) ou B (95/5) são os mais próximos.
-    log "Executando cenário Write-Heavy no MongoDB (workload a - 50/50)..."
-    start_resource_monitoring "mongo" "write_heavy" # Renomeando para consistência, mas é workload A
+    # Cenário 2: Read Range
+    log "Executando cenário Read Range no MongoDB..."
+    start_resource_monitoring "mongo" "read_range"
     $YCSB_EXEC run mongodb -s \
-        -P workloads/workloada \
+        -P workloads/desempenho_consultas/workload_read_range \
         -p mongodb.url="mongodb://teste:teste@mongo-db:27017/ycsb?authSource=admin" \
-        > $RESULTS_DIR/mongo_write_heavy.log 2>&1
+        > $RESULTS_DIR/mongo_read_range.log 2>&1
     stop_resource_monitoring
 
-    # Cenário 3: Balanceado (Workload A: 50% Leitura, 50% Atualização)
-    log "Executando cenário Balanceado no MongoDB (workload a)..."
-    start_resource_monitoring "mongo" "balanced"
+    # Cenário 3: Read Join Agg
+    log "Executando cenário Read Join Agg no MongoDB"
+    start_resource_monitoring "mongo" "read_join_agg"
     $YCSB_EXEC run mongodb -s \
-        -P workloads/workloada \
+        -P workloads/desempenho_consultas/workload_read_join_agg \
         -p mongodb.url="mongodb://teste:teste@mongo-db:27017/ycsb?authSource=admin" \
-        > $RESULTS_DIR/mongo_balanced.log 2>&1
+        > $RESULTS_DIR/mongo_read_join_agg.log 2>&1
     stop_resource_monitoring
 
     log "Benchmarks MongoDB concluídos!"
@@ -273,44 +272,7 @@ main() {
     log "Resultados salvos em: $RESULTS_DIR/"
     log "Log detalhado: $LOG_FILE"
     
-    # Gerar resumo executável
-    generate_summary
-}
-
-# Gerar relatório de resumo
-generate_summary() {
-    cat > $RESULTS_DIR/generate_summary.sh << 'EOF'
-#!/bin/bash
-echo "=== RESUMO DOS RESULTADOS ==="
-echo ""
-echo "PostgreSQL Read-Heavy:"
-grep "transactions:" results/postgres_read_heavy.log | tail -1
-grep "queries:" results/postgres_read_heavy.log | tail -1
-echo ""
-echo "PostgreSQL Write-Heavy:"
-grep "transactions:" results/postgres_write_heavy.log | tail -1
-grep "queries:" results/postgres_write_heavy.log | tail -1
-echo ""
-echo "PostgreSQL Balanced:"
-grep "transactions:" results/postgres_balanced.log | tail -1
-grep "queries:" results/postgres_balanced.log | tail -1
-echo ""
-echo "MongoDB Read-Heavy:"
-grep "\[OVERALL\], Throughput" results/mongo_read_heavy.log
-grep "\[READ\], AverageLatency" results/mongo_read_heavy.log
-echo ""
-echo "MongoDB Write-Heavy:"
-grep "\[OVERALL\], Throughput" results/mongo_write_heavy.log
-grep "\[UPDATE\], AverageLatency" results/mongo_write_heavy.log
-echo ""
-echo "MongoDB Balanced:"
-grep "\[OVERALL\], Throughput" results/mongo_balanced.log
-grep "\[READ\], AverageLatency" results/mongo_balanced.log
-grep "\[UPDATE\], AverageLatency" results/mongo_balanced.log
-EOF
-    chmod +x $RESULTS_DIR/generate_summary.sh
-    
-    log "Execute './results/generate_summary.sh' para ver um resumo dos resultados"
+    log "Execute './results_teste_consultas/generate_summary.sh' para ver um resumo dos resultados"
 }
 
 # Executar função principal
