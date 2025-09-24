@@ -109,6 +109,11 @@ run_mongo_benchmarks() {
     log "Executando benchmarks YCSB com diferentes níveis de estresse..."
     docker exec ycsb-runner bash -c '/app/scripts/estresse/run_benchmarks.sh' > "$RESULTS_DIR/mongo_all.log" 2>&1
 
+    log "Separando logs do YCSB por cenário..."
+    awk '/=== CENÁRIO MODERATE STRESS ===/,/=== CENÁRIO HIGH STRESS ===/' "$RESULTS_DIR/mongo_all.log" > "$RESULTS_DIR/mongo_moderate.log"
+    awk '/=== CENÁRIO HIGH STRESS ===/,/=== CENÁRIO EXTREME STRESS ===/' "$RESULTS_DIR/mongo_all.log" > "$RESULTS_DIR/mongo_high.log"
+    awk '/=== CENÁRIO EXTREME STRESS ===/ {p=1} p' "$RESULTS_DIR/mongo_all.log" > "$RESULTS_DIR/mongo_extreme.log"
+
     log "Benchmarks MongoDB concluídos!"
 }
 

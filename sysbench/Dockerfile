@@ -31,7 +31,6 @@ RUN ./autogen.sh \
 WORKDIR /app
 
 # Copiar scripts de teste
-COPY scripts/carga/ ./scripts/carga/
 COPY scripts/estresse/ ./scripts/estresse/
 COPY scripts/prepare_sysbench.sh ./scripts/
 RUN chmod +x ./scripts/carga/*.sh ./scripts/estresse/*.sh ./scripts/prepare_sysbench.sh && \

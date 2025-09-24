@@ -19,7 +19,6 @@ RUN /opt/ycsb/bin/ycsb load mongodb -h >/dev/null 2>&1 || true
 WORKDIR /app
 
 # Copiar workloads customizados
-COPY workloads/carga/ /opt/YCSB/workloads/carga/
 COPY workloads/estresse/ /opt/YCSB/workloads/estresse/
 COPY scripts/estresse/ /app/scripts/estresse/
 
