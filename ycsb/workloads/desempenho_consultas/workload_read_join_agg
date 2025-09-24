@@ -1,0 +1,22 @@
+# Workload Read Join + Aggregation: leituras mais pesadas simulando agregações
+recordcount=1000000
+operationcount=500000
+workload=site.ycsb.workloads.CoreWorkload
+
+readallfields=true
+readproportion=1
+updateproportion=0
+insertproportion=0
+scanproportion=0
+
+# Distribuição uniforme força o acesso a registros variados (simula JOIN/AGG)
+requestdistribution=uniform
+
+# Configurações MongoDB
+mongodb.url=mongodb://teste:teste@mongo-db:27017/admin
+mongodb.database=olist
+mongodb.writeConcern=acknowledged
+
+# Performance
+threadcount=20
+target=1000

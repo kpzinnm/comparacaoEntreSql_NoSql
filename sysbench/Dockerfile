@@ -32,7 +32,9 @@ WORKDIR /app
 
 # Copiar scripts de teste
 COPY scripts/carga/ ./scripts/carga/
+COPY scripts/desempenho_consultas/ ./scripts/desempenho_consultas/
 RUN chmod +x ./scripts/carga/*.sh
+RUN chmod +x ./scripts/desempenho_consultas/*.sh
 
 # Configura variáveis de ambiente padrão
 ENV DB_HOST=postgres-db \
