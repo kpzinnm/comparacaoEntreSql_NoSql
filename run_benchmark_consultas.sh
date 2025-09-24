@@ -211,7 +211,7 @@ run_mongo_benchmarks() {
     # Carregar dados iniciais com YCSB
     log "Carregando dados com YCSB"
     $YCSB_EXEC load mongodb -s \
-        -P workloads/workloada \
+        -P workloads/desempenho_consultas/workload_load \
         -p mongodb.url="mongodb://teste:teste@mongo-db:27017/ycsb?authSource=admin" \
         > $RESULTS_DIR/mongo_load.log 2>&1
 
@@ -219,7 +219,7 @@ run_mongo_benchmarks() {
     log "Executando cenário Read Simple no MongoDB..."
     start_resource_monitoring "mongo" "read_simple"
     $YCSB_EXEC run mongodb -s \
-        -P workloads/workloadc \
+        -P workloads/desempenho_consultas/workload_read_simple \
         -p mongodb.url="mongodb://teste:teste@mongo-db:27017/ycsb?authSource=admin" \
         > $RESULTS_DIR/mongo_read_simple.log 2>&1
     stop_resource_monitoring
@@ -228,7 +228,7 @@ run_mongo_benchmarks() {
     log "Executando cenário Read Range no MongoDB..."
     start_resource_monitoring "mongo" "read_range"
     $YCSB_EXEC run mongodb -s \
-        -P workloads/workloada \
+        -P workloads/desempenho_consultas/workload_read_range \
         -p mongodb.url="mongodb://teste:teste@mongo-db:27017/ycsb?authSource=admin" \
         > $RESULTS_DIR/mongo_read_range.log 2>&1
     stop_resource_monitoring
@@ -237,7 +237,7 @@ run_mongo_benchmarks() {
     log "Executando cenário Read Join Agg no MongoDB"
     start_resource_monitoring "mongo" "read_join_agg"
     $YCSB_EXEC run mongodb -s \
-        -P workloads/workloada \
+        -P workloads/desempenho_consultas/workload_read_join_agg \
         -p mongodb.url="mongodb://teste:teste@mongo-db:27017/ycsb?authSource=admin" \
         > $RESULTS_DIR/mongo_read_join_agg.log 2>&1
     stop_resource_monitoring
@@ -272,44 +272,7 @@ main() {
     log "Resultados salvos em: $RESULTS_DIR/"
     log "Log detalhado: $LOG_FILE"
     
-    # Gerar resumo executável
-    generate_summary
-}
-
-# Gerar relatório de resumo
-generate_summary() {
-    cat > $RESULTS_DIR/generate_summary.sh << 'EOF'
-#!/bin/bash
-echo "=== RESUMO DOS RESULTADOS ==="
-echo ""
-echo "PostgreSQL Read Simple:"
-grep "transactions:" results/postgres_read_simple.log | tail -1
-grep "queries:" results/postgres_read_simple.log | tail -1
-echo ""
-echo "PostgreSQL Read Range:"
-grep "transactions:" results/postgres_read_range.log | tail -1
-grep "queries:" results/postgres_read_range.log | tail -1
-echo ""
-echo "PostgreSQL Read Join + Agg:"
-grep "transactions:" results/postgres_read_join_agg.log | tail -1
-grep "queries:" results/postgres_read_join_agg.log | tail -1
-echo ""
-echo "MongoDB Read-Heavy:"
-grep "\[OVERALL\], Throughput" results/mongo_read_heavy.log
-grep "\[READ\], AverageLatency" results/mongo_read_heavy.log
-echo ""
-echo "MongoDB Write-Heavy:"
-grep "\[OVERALL\], Throughput" results/mongo_write_heavy.log
-grep "\[UPDATE\], AverageLatency" results/mongo_write_heavy.log
-echo ""
-echo "MongoDB Balanced:"
-grep "\[OVERALL\], Throughput" results/mongo_balanced.log
-grep "\[READ\], AverageLatency" results/mongo_balanced.log
-grep "\[UPDATE\], AverageLatency" results/mongo_balanced.log
-EOF
-    chmod +x $RESULTS_DIR/generate_summary.sh
-    
-    log "Execute './results/generate_summary.sh' para ver um resumo dos resultados"
+    log "Execute './results_teste_consultas/generate_summary.sh' para ver um resumo dos resultados"
 }
 
 # Executar função principal
