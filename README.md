@@ -1,7 +1,7 @@
 # comparacaoEntreSql_NoSql
 Experimento prático e conceitual comparando bancos de dados do tipo SQL e NoSQL
 
-**Navegue por cada tipo de teste alterando a branch do repositório**
+**NAVEGUE POR CADA TIPO DE TESTE ALTERANDO A BRANCH DO REPOSITÓRIO**
 
 ## 1. Objetivo
 Comparar PostgreSQL (banco de dados relacional) e MongoDB (banco de dados orientado a documentos) em termos de:
