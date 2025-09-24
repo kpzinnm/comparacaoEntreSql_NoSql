@@ -70,13 +70,13 @@ Estrutura do Projeto
 ```
 comparacaoEntreSql_NoSql/
 ├── datasets/                          # Diretório de datasets
-│   ├── mongo/                        # Arquivos JSON para MongoDB
+│   ├── mongo/                         # Arquivos JSON para MongoDB
 │   │   ├── …
 │   │   └── ...
-│   └── *.csv                         # Arquivos CSV para PostgreSQL
+│   └── *.csv                          # Arquivos CSV para PostgreSQL
 ├── postgres/
 │   └── init/
-│       └── 01-init.sql              # Schema do PostgreSQL
+│       └── 01-init.sql                # Schema do PostgreSQL
 ├── sysbench/
 │   ├── Dockerfile
 │   └── scripts/
@@ -86,8 +86,8 @@ comparacaoEntreSql_NoSql/
 │   └── workloads/
 │       └── …
 ├── docker-compose.yml
-├── run_benchmark_<teste>.sh                 # Cada cenário de teste tem um script
-└── results/                                 # Resultado dos benchmarks
+├── run_benchmark.sh                   # Cada cenário de teste tem um script
+└── results/                           # Resultado dos benchmarks
 ```
 ## Configuração do Ambiente
 ### 1. Preparação dos Datasets
