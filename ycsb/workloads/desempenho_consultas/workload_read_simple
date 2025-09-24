@@ -1,6 +1,6 @@
 # Workload Read Simple: leituras diretas por chave
 recordcount=1000000
-operationcount=500000
+operationcount=60000
 workload=site.ycsb.workloads.CoreWorkload
 
 readallfields=true

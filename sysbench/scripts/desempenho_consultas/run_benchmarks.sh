@@ -25,7 +25,7 @@ run_benchmark() {
         --tables=3 \
         --threads=$threads \
         --time=$time \
-        --report-interval=30 \
+        --report-interval=10 \
         run
 }
 
@@ -42,14 +42,14 @@ log "Iniciando benchmarks de consultas Sysbench..."
 
 # Cenário 1: Read Simple
 log "=== CENÁRIO READ SIMPLE ==="
-run_benchmark "read_simple" 20 300
+run_benchmark "read_simple" 20 60
 
 # Cenário 2: Read Range
 log "=== CENÁRIO READ RANGE ==="
-run_benchmark "read_range" 20 300
+run_benchmark "read_range" 20 60
 
 # Cenário 3: Read Join + Agregação
 log "=== CENÁRIO READ JOIN + AGG ==="
-run_benchmark "read_join_agg" 20 300
+run_benchmark "read_join_agg" 20 60
 
 log "Benchmarks de consultas Sysbench concluídos!"

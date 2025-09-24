@@ -1,6 +1,6 @@
 # Workload Read Join + Aggregation: leituras mais pesadas simulando agregações
 recordcount=1000000
-operationcount=500000
+operationcount=60000
 workload=site.ycsb.workloads.CoreWorkload
 
 readallfields=true
