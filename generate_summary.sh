@@ -37,10 +37,10 @@ awk '
         print
         if ($1=="sum:") {flag_print=0; flag_scenario=0}
     }
-' "./results_teste_consultas/sysbench_all.log"
+' "./results/sysbench_all.log"
 
 echo -e "\n\n--MongoDB:\n"
-print_mongo_benchmark1 "./results_teste_consultas/mongo_read_simple.log"
+print_mongo_benchmark1 "./results/mongo_read_simple.log"
 
 echo -e "\n==================== CENÁRIO READ RANGE ====================\n"
 echo -e "--PostgreSQL:\n"
@@ -51,10 +51,10 @@ awk '
         print
         if ($1=="sum:") {flag_print=0; flag_scenario=0}
     }
-' "./results_teste_consultas/sysbench_all.log"
+' "./results/sysbench_all.log"
 
 echo -e "\n\n--MongoDB:\n"
-print_mongo_benchmark2 "./results_teste_consultas/mongo_read_range.log"
+print_mongo_benchmark2 "./results/mongo_read_range.log"
 
 echo -e "\n==================== CENÁRIO READ JOIN + AGG ====================\n"
 echo -e "--PostgreSQL:\n"
@@ -65,7 +65,7 @@ awk '
         print
         if ($1=="sum:") {flag_print=0; flag_scenario=0}
     }
-' "./results_teste_consultas/sysbench_all.log"
+' "./results/sysbench_all.log"
 
 echo -e "\n\n--MongoDB:\n"
-print_mongo_benchmark1 "./results_teste_consultas/mongo_read_join_agg.log"
+print_mongo_benchmark1 "./results/mongo_read_join_agg.log"
