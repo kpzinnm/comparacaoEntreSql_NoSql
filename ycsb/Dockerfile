@@ -20,6 +20,11 @@ WORKDIR /app
 
 # Copiar workloads customizados
 COPY workloads/carga/ /opt/YCSB/workloads/carga/
+COPY workloads/estresse/ /opt/YCSB/workloads/estresse/
+COPY scripts/estresse/ /app/scripts/estresse/
+
+# Dar permissões de execução
+RUN chmod +x /app/scripts/estresse/*.sh
 
 # Criar link simbólico para facilitar acesso
 RUN ln -s /opt/YCSB/bin/ycsb /usr/local/bin/ycsb

@@ -1,0 +1,21 @@
+# Workload Estresse Extremo: 200 threads
+recordcount=1000000
+operationcount=10000000
+workload=site.ycsb.workloads.CoreWorkload
+
+readallfields=true
+readproportion=0.5
+updateproportion=0.3
+insertproportion=0.2
+scanproportion=0
+
+requestdistribution=zipfian
+
+# Configurações MongoDB
+mongodb.url=mongodb://teste:teste@mongo-db:27017/admin
+mongodb.database=olist
+mongodb.writeConcern=acknowledged
+
+# Performance - Estresse Extremo
+threadcount=200
+target=10000

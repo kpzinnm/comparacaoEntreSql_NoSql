@@ -17,9 +17,16 @@ run_benchmark() {
     log "Threads: $threads, Duração: ${time}s, Leitura: ${read_proportion}%, Escrita: ${write_proportion}%"
     
     # Calcular proporções baseadas na divisão 20 operações totais
-    local point_selects=$((read_proportion * 20 / 100))
-    local index_updates=$((write_proportion * 10 / 100))
-    local non_index_updates=$((write_proportion * 10 / 100))
+    local total_ops=20
+    local total_reads=$((read_proportion * total_ops / 100))
+    local point_selects=$((total_reads / 5))
+    local simple_ranges=$((total_reads / 5))
+    local sum_ranges=$((total_reads / 5))
+    local order_ranges=$((total_reads / 5))
+    local distinct_ranges=$((total_reads / 5))
+    local index_updates=$((write_proportion * total_ops / 100))
+    local non_index_updates=$((write_proportion * total_ops / 100))
+    
     
     sysbench oltp_read_write \
         --db-driver=pgsql \
@@ -34,10 +41,10 @@ run_benchmark() {
         --time=$time \
         --report-interval=30 \
         --point-selects=$point_selects \
-        --simple-ranges=$point_selects \
-        --sum-ranges=$point_selects \
-        --order-ranges=$point_selects \
-        --distinct-ranges=$point_selects \
+        --simple-ranges=$simple_ranges \
+        --sum-ranges=$sum_ranges \
+        --order-ranges=$order_ranges \
+        --distinct-ranges=$distinct_ranges \
         --index-updates=$index_updates \
         --non-index-updates=$non_index_updates \
         run
@@ -54,7 +61,7 @@ export PGPASSWORD=$DB_PASSWORD
 
 log "Iniciando benchmarks Sysbench..."
 
-# Cenário 1: Read-Heavy (90% leitura, 10% escrita)
+# Cenário 1: Read-Heavy (90% leitura, 10% escrita, 160 threads)
 log "=== CENÁRIO READ-HEAVY ==="
 run_benchmark "read_heavy" 20 300 90 10
 
