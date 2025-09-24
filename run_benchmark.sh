@@ -272,7 +272,7 @@ main() {
     log "Resultados salvos em: $RESULTS_DIR/"
     log "Log detalhado: $LOG_FILE"
     
-    log "Execute './results_teste_consultas/generate_summary.sh' para ver um resumo dos resultados"
+    log "Execute './generate_summary.sh' para ver um resumo dos resultados"
 }
 
 # Executar função principal
