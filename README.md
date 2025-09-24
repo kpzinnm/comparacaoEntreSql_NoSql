@@ -87,7 +87,7 @@ comparacaoEntreSql_NoSql/
 │       └── …
 ├── docker-compose.yml
 ├── run_benchmark_<teste>.sh                 # Cada cenário de teste tem um script
-└── results/                         # Cada cenário de teste tem um diretório 
+└── results/                                 # Resultado dos benchmarks
 ```
 ## Configuração do Ambiente
 ### 1. Preparação dos Datasets
