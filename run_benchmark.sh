@@ -7,7 +7,7 @@
 set -e  # Sai imediatamente em caso de erro
 
 # Configurações
-RESULTS_DIR="results_teste_carga"
+RESULTS_DIR="results_teste_concorrencia"
 DATASETS_DIR="datasets"
 LOG_FILE="benchmark_$(date +%Y%m%d_%H%M%S).log"
 
@@ -244,6 +244,26 @@ run_mongo_benchmarks() {
     stop_resource_monitoring
 
     log "Benchmarks MongoDB concluídos!"
+
+}
+
+# Testes de Concorrência
+run_concurrency_tests() {
+    log "=== INICIANDO TESTES DE CONCORRÊNCIA ==="
+
+    # PostgreSQL
+    log "Executando teste de concorrência no PostgreSQL..."
+    start_resource_monitoring "postgres" "concurrency"
+    docker exec sysbench-runner /app/scripts/concorrencia/run_postgres_concurrency.sh > $RESULTS_DIR/postgres_concurrency.log 2>&1
+    stop_resource_monitoring
+    log "Teste de concorrência PostgreSQL concluído!"
+
+    # MongoDB
+    log "Executando teste de concorrência no MongoDB..."
+    start_resource_monitoring "mongo" "concurrency"
+    docker exec ycsb-runner /app/scripts/concorrencia/run_mongo_concurrency.sh > $RESULTS_DIR/mongo_concurrency.log 2>&1
+    stop_resource_monitoring
+    log "Teste de concorrência MongoDB concluído!"
 }
 
 # Função principal
@@ -265,9 +285,10 @@ main() {
     wait_for_containers
     
     # Executar sequência de benchmarks
-    #prepare_databases
-    run_postgres_benchmarks
-    run_mongo_benchmarks
+    prepare_databases
+    #run_postgres_benchmarks
+    #run_mongo_benchmarks
+    run_concurrency_tests
     
     log "=== BENCHMARK CONCLUÍDO ==="
     log "Resultados salvos em: $RESULTS_DIR/"
@@ -307,6 +328,27 @@ echo "MongoDB Balanced:"
 grep "\[OVERALL\], Throughput" results/mongo_balanced.log
 grep "\[READ\], AverageLatency" results/mongo_balanced.log
 grep "\[UPDATE\], AverageLatency" results/mongo_balanced.log
+echo ""
+echo "PostgreSQL Concurrency:"
+grep "transactions:" results/postgres_concurrency.log | tail -1
+echo ""
+echo "MongoDB Concurrency:"
+grep "\[OVERALL\], Throughput" results/mongo_concurrency.log
+grep "\[UPDATE\], AverageLatency" results/mongo_concurrency.log
+echo ""
+echo "PostgreSQL Concurrency:"
+for t in 10 50 100; do
+  echo "Threads $t:"
+  grep "transactions:" results/postgres_concurrency_${t}.log | tail -1
+done
+
+echo ""
+echo "MongoDB Concurrency:"
+for t in 10 50 100; do
+  echo "Threads $t:"
+  grep "\[OVERALL\], Throughput" results/mongo_concurrency_${t}.log
+  grep "\[UPDATE\], AverageLatency" results/mongo_concurrency_${t}.log
+done
 EOF
     chmod +x $RESULTS_DIR/generate_summary.sh
     

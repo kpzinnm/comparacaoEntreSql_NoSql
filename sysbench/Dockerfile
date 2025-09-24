@@ -34,6 +34,9 @@ WORKDIR /app
 COPY scripts/carga/ ./scripts/carga/
 RUN chmod +x ./scripts/carga/*.sh
 
+COPY scripts/concorrencia/ ./scripts/concorrencia/
+RUN chmod +x ./scripts/concorrencia/*.sh
+
 # Configura variáveis de ambiente padrão
 ENV DB_HOST=postgres-db \
     DB_PORT=5432 \

@@ -1,0 +1,14 @@
+# Workload para simular concorrência de updates em estoque
+
+recordcount=1
+operationcount=5000
+
+workload=com.yahoo.ycsb.workloads.CoreWorkload
+
+# Apenas updates
+readproportion=0
+updateproportion=1
+scanproportion=0
+insertproportion=0
+
+requestdistribution=uniform

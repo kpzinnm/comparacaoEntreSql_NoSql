@@ -21,6 +21,10 @@ WORKDIR /app
 # Copiar workloads customizados
 COPY workloads/carga/ /opt/YCSB/workloads/carga/
 
+# Copiar scripts de concorrência
+COPY scripts/concorrencia/ ./scripts/concorrencia/
+RUN chmod +x ./scripts/concorrencia/*.sh
+
 # Criar link simbólico para facilitar acesso
 RUN ln -s /opt/YCSB/bin/ycsb /usr/local/bin/ycsb
 
