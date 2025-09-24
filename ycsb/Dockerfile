@@ -19,7 +19,7 @@ RUN /opt/ycsb/bin/ycsb load mongodb -h >/dev/null 2>&1 || true
 WORKDIR /app
 
 # Copiar workloads customizados
-COPY workloads/carga/ /opt/YCSB/workloads/carga/
+COPY workloads/volume/ /opt/YCSB/workloads/volume/
 
 # Criar link simbólico para facilitar acesso
 RUN ln -s /opt/YCSB/bin/ycsb /usr/local/bin/ycsb

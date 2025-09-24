@@ -1,6 +1,0 @@
-2025-09-23 09:46:16 - Iniciando benchmark comparativo PostgreSQL vs MongoDB
-2025-09-23 09:46:16 - === PREPARAÇÃO DOS BANCOS DE DADOS ===
-2025-09-23 09:46:16 - Executando script de schema do PostgreSQL...
-2025-09-23 09:46:16 - Carregando dados no PostgreSQL...
-2025-09-23 09:46:16 - Carregando tabela: olist_customers_dataset
-2025-09-23 09:46:18 - Carregando tabela: olist_geolocation_dataset

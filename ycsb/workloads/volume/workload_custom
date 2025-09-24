@@ -1,0 +1,11 @@
+recordcount=1000000
+operationcount=1000
+workload=com.yahoo.ycsb.workloads.CoreWorkload
+
+# Selecione a proporção de cada operação (0 a 1)
+readallproportion=0.3        # SELECT simples com LIMIT 1000
+readproportion=0.3           # SELECT com filtro (price > 500000)
+updateproportion=0.2         # UPDATE 100 registros
+insertproportion=0           # não precisa de insert
+deleteproportion=0.1         # DELETE 100 registros
+scanproportion=0             # scans típicos

@@ -31,8 +31,7 @@ RUN ./autogen.sh \
 WORKDIR /app
 
 # Copiar scripts de teste
-COPY scripts/carga/ ./scripts/carga/
-RUN chmod +x ./scripts/carga/*.sh
+COPY scripts/volume/ ./scripts/volume/
 
 # Configura variáveis de ambiente padrão
 ENV DB_HOST=postgres-db \

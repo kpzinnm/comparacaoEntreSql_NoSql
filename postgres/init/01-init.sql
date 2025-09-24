@@ -1,90 +1,57 @@
--- Schema completo para Brazilian E-commerce Dataset
-CREATE TABLE IF NOT EXISTS olist_customers_dataset (
-    customer_id TEXT PRIMARY KEY,
-    customer_unique_id TEXT,
-    customer_zip_code_prefix INTEGER,
-    customer_city TEXT,
-    customer_state TEXT
+-- Criação da tabela principal
+CREATE TABLE IF NOT EXISTS property_prices (
+    transaction_id UUID PRIMARY KEY,
+    price BIGINT NOT NULL,
+    date_of_transfer TIMESTAMP WITHOUT TIME ZONE NOT NULL,
+    postcode TEXT,
+    property_type CHAR(1),
+    new_build_flag CHAR(1),
+    tenure CHAR(1),
+    paon TEXT,
+    saon TEXT,
+    street TEXT,
+    locality TEXT,
+    town_city TEXT,
+    district TEXT,
+    county TEXT,
+    ppd_category_type CHAR(1),
+    record_status CHAR(1)
 );
 
-CREATE TABLE IF NOT EXISTS olist_geolocation_dataset (
-    geolocation_zip_code_prefix INTEGER,
-    geolocation_lat DECIMAL(10,8),
-    geolocation_lng DECIMAL(11,8),
-    geolocation_city TEXT,
-    geolocation_state TEXT
+-- Criação da tabela auxiliar
+CREATE TABLE IF NOT EXISTS town_info (
+    town_city TEXT PRIMARY KEY,
+    region TEXT NOT NULL,
+    population INT
 );
 
-CREATE TABLE IF NOT EXISTS olist_orders_dataset (
-    order_id TEXT PRIMARY KEY,
-    customer_id TEXT,
-    order_status TEXT,
-    order_purchase_timestamp TIMESTAMP,
-    order_approved_at TIMESTAMP,
-    order_delivered_carrier_date TIMESTAMP,
-    order_delivered_customer_date TIMESTAMP,
-    order_estimated_delivery_date TIMESTAMP
-);
+-- Importar CSV para property_prices
+COPY property_prices(transaction_id, price, date_of_transfer, postcode, property_type, new_build_flag,
+    tenure, paon, saon, street, locality, town_city, district, county, ppd_category_type, record_status)
+FROM '/docker-entrypoint-initdb.d/uk_property_prices.csv'
+DELIMITER ','
+CSV;
 
-CREATE TABLE IF NOT EXISTS olist_order_items_dataset (
-    order_id TEXT,
-    order_item_id INTEGER,
-    product_id TEXT,
-    seller_id TEXT,
-    shipping_limit_date TIMESTAMP,
-    price DECIMAL(10,2),
-    freight_value DECIMAL(10,2)
-);
-
-CREATE TABLE IF NOT EXISTS olist_order_payments_dataset (
-    order_id TEXT,
-    payment_sequential INTEGER,
-    payment_type TEXT,
-    payment_installments INTEGER,
-    payment_value DECIMAL(10,2)
-);
-
-CREATE TABLE IF NOT EXISTS olist_order_reviews_dataset (
-    review_id TEXT,
-    order_id TEXT,
-    review_score INTEGER,
-    review_comment_title TEXT,
-    review_comment_message TEXT,
-    review_creation_date TIMESTAMP,
-    review_answer_timestamp TIMESTAMP
-);
-
-CREATE TABLE IF NOT EXISTS olist_products_dataset (
-    product_id TEXT PRIMARY KEY,
-    product_category_name TEXT,
-    product_name_lenght INTEGER,
-    product_description_lenght INTEGER,
-    product_photos_qty INTEGER,
-    product_weight_g INTEGER,
-    product_length_cm INTEGER,
-    product_height_cm INTEGER,
-    product_width_cm INTEGER
-);
-
-CREATE TABLE IF NOT EXISTS olist_sellers_dataset (
-    seller_id TEXT PRIMARY KEY,
-    seller_zip_code_prefix INTEGER,
-    seller_city TEXT,
-    seller_state TEXT
-);
-
-CREATE TABLE IF NOT EXISTS product_category_name_translation (
-    product_category_name TEXT,
-    product_category_name_english TEXT
-);
-
--- Criar índices para melhor performance
-CREATE INDEX IF NOT EXISTS idx_customers_city ON olist_customers_dataset(customer_city);
-CREATE INDEX IF NOT EXISTS idx_orders_customer ON olist_orders_dataset(customer_id);
-CREATE INDEX IF NOT EXISTS idx_orders_status ON olist_orders_dataset(order_status);
-CREATE INDEX IF NOT EXISTS idx_products_category ON olist_products_dataset(product_category_name);
-CREATE INDEX IF NOT EXISTS idx_order_items_product ON olist_order_items_dataset(product_id);
-CREATE INDEX IF NOT EXISTS idx_order_items_order ON olist_order_items_dataset(order_id);
-CREATE INDEX IF NOT EXISTS idx_order_payments_order ON olist_order_payments_dataset(order_id);
-CREATE INDEX IF NOT EXISTS idx_order_reviews_order ON olist_order_reviews_dataset(order_id);
-CREATE INDEX IF NOT EXISTS idx_sellers_city ON olist_sellers_dataset(seller_city);
+-- Inserir dados hardcoded na tabela town_info
+INSERT INTO town_info (town_city, region, population) VALUES
+('London', 'England', 9000000),
+('Manchester', 'England', 550000),
+('Birmingham', 'England', 1150000),
+('Liverpool', 'England', 500000),
+('Leeds', 'England', 800000),
+('Sheffield', 'England', 600000),
+('Bristol', 'England', 470000),
+('Edinburgh', 'Scotland', 500000),
+('Glasgow', 'Scotland', 635000),
+('Cardiff', 'Wales', 370000),
+('Swansea', 'Wales', 245000),
+('Belfast', 'Northern Ireland', 340000),
+('Newcastle', 'England', 300000),
+('Nottingham', 'England', 330000),
+('Leicester', 'England', 355000),
+('Coventry', 'England', 375000),
+('Kingston upon Hull', 'England', 260000),
+('Bradford', 'England', 360000),
+('Stoke-on-Trent', 'England', 255000),
+('Wolverhampton', 'England', 260000)
+ON CONFLICT (town_city) DO NOTHING;

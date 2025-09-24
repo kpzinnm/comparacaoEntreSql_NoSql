@@ -1,8 +1,7 @@
-version: '3.8'
-
 services:
   postgres-db:
-    image: postgres:17
+    build:
+      context: ./postgres
     container_name: postgres-db
     restart: unless-stopped
     environment:
@@ -20,12 +19,14 @@ services:
       retries: 5
 
   mongo-db:
-    image: mongo:7.0.23
+    build:
+      context: ./mongo
     container_name: mongo-db
     restart: unless-stopped
     environment:
       - MONGO_INITDB_ROOT_USERNAME=teste
       - MONGO_INITDB_ROOT_PASSWORD=teste
+      - MONGO_INITDB_DATABASE=benchmark_db
     ports:
       - "27017:27017"
     volumes:
@@ -44,6 +45,9 @@ services:
       postgres-db:
         condition: service_healthy
     command: tail -f /dev/null
+    volumes:
+      - ./sysbench/scripts/sysbench/custom_benchmark.lua:/app/scripts/volume/custom_benchmark.lua:ro
+
 
   ycsb-runner:
     build:
@@ -53,6 +57,9 @@ services:
       mongo-db:
         condition: service_healthy
     command: tail -f /dev/null
+    volumes:
+      - ./dataset/mongo:/app/dataset/mongo:ro
+      - ./ycsb/scripts/volume/mongo_queries.sh:/app/scripts/volume/mongo_queries.sh:ro
 
 volumes:
   postgres_data:
